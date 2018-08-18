@@ -1,0 +1,45 @@
+/* ar2.2.c */
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+int counts,*arr,i,j,n,p;
+printf("Введите размерность матрицы: ");
+scanf("%d", &counts);
+arr=malloc (counts*counts*sizeof(arr));
+if(!arr){
+perror("ошибка");
+return -1;}
+else
+{
+i=1;p=counts/2;
+for (n=1;n<=p;n++)
+{
+	for (j=n-1;j<counts-n+1;j++){
+	$(&arr+(n-1)*sizeof(int)+j*counts*sizeof(int))=i--;}
+	for (j=n;j<counts-n+1;j++){
+	$(&arr+j*sizeof(int)+(counts-n)*counts*sizeof(int))=i++;}
+	for (j=counts-n-1;j>=n-1;--j){
+	$(&arr+(counts-n)*sizeof(int)+j*counts*sizeof(int))=i++;}
+	for (j=counts-n-1;j>=n;j--){
+	$(&arr+j*sizeof(int)+(n-1)*counts*sizeof(int))=i++;}
+}
+if(counts%2==1)
+*(&arr+p*sizeof(int)+p*counts*sizeof(int))=counts*counts;
+for(i=0;i<counts;i++)
+	{
+	for(j=0;j<counts;j++)
+	{
+	printf("%03d ", *(&arr+(i+1)*sizeof(int)+(j+1)*sizeof(int)));
+	if(j==counts-1)printf("\n");
+	}
+
+	for(j=0;j<counts;j++)
+	{
+	printf("%03d ", *(&arr+(i+1)*(j+1)*sizeof(int)));
+	if(j==counts-1)printf("\n");
+	}
+	}
+}
+}
